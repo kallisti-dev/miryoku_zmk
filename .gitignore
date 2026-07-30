@@ -1,0 +1,6 @@
+# Nix build outputs
+result
+result-*
+
+# Downloaded / stray firmware artifacts (built firmware lives in ./result)
+zmk.uf2
