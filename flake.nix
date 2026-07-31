@@ -27,7 +27,10 @@
         # ZMK main uses Zephyr HWMv2: the old flat "nice_nano_v2" is now the
         # "nice_nano" board with the "//zmk" variant (default revision 2.0.0).
         board = "nice_nano//zmk";
-        shield = "corne_%PART%";
+        # KeyboardHoarders Corne Mini 2 ships nice!view (e-paper) displays,
+        # not OLEDs. They require the nice_view_adapter + nice_view shields
+        # stacked on the corne shield (matches the maker's build.yaml).
+        shield = "corne_%PART% nice_view_adapter nice_view";
 
         zephyrDepsHash = "sha256-huutvB9pKI/7oMHB7lDbzoBo0d1THF67AKitYG3GlI0=";
 
