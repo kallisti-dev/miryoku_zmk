@@ -24,10 +24,12 @@
           ".h" ".json" ".keymap" ".overlay" ".shield" ".yml" "_defconfig"
         ];
 
-        board = "nice_nano_v2";
+        # ZMK main uses Zephyr HWMv2: the old flat "nice_nano_v2" is now the
+        # "nice_nano" board with the "//zmk" variant (default revision 2.0.0).
+        board = "nice_nano//zmk";
         shield = "corne_%PART%";
 
-        zephyrDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+        zephyrDepsHash = "sha256-huutvB9pKI/7oMHB7lDbzoBo0d1THF67AKitYG3GlI0=";
 
         meta = {
           description = "Miryoku ZMK firmware for Corne";
