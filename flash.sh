@@ -9,6 +9,10 @@
 #
 # Flashes result/zmk_<side>.uf2 (produced by `nix build`) to a nice!nano in
 # bootloader mode. Run once per half.
+#
+# Non-interactive: starts polling immediately and flashes as soon as the
+# bootloader volume appears, so it can be run before or after double-tapping
+# reset. Override the wait with FLASH_MOUNT_TIMEOUT (default 60s).
 
 set -euo pipefail
 
@@ -56,8 +60,6 @@ find_bootloader_volume() {
 }
 
 echo "Put the ${SIDE_UPPER} half into bootloader mode (double-tap the reset button)."
-printf 'Press Enter when ready (or Ctrl-C to cancel)... '
-read -r _
 
 printf 'Waiting for the bootloader volume '
 volume=""
