@@ -3,14 +3,29 @@
 
 #pragma once
 
-#define ZMK_MOUSE_DEFAULT_MOVE_VAL 1250
-#define ZMK_MOUSE_DEFAULT_SCRL_VAL 100
+// Upstream ZMK merged feat/pointers-move-scroll and renamed these from
+// ZMK_MOUSE_DEFAULT_* to ZMK_POINTING_DEFAULT_* (dt-bindings/zmk/pointing.h).
+// Define both so this header works against either vintage; pointing.h guards
+// its own defaults with #ifndef, and is included after this file.
+//
+// These are the top speeds. SCRL_VAL 50 = 5x ZMK's stock 10.
+#define ZMK_MOUSE_DEFAULT_MOVE_VAL 2000
+#define ZMK_MOUSE_DEFAULT_SCRL_VAL 50
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 2000
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 50
 
+// Speed = MOVE_VAL * (held_time / TIME) ^ EXPONENT, capped at MOVE_VAL.
+//
+// EXPONENT is uint8 and the base is < 1, so a HIGHER exponent starts slower
+// (ZMK: 0 = uniform speed, 1 = uniform acceleration, 2 = uniform jerk). There
+// is no fractional/sharp-off-the-line curve available, so 1 stays: it's the
+// only value that accelerates smoothly at all. Snappiness comes from the short
+// TIME instead — acceleration is still present, it just resolves quickly.
 #define U_MOUSE_MOVE_EXPONENT 1
-#define U_MOUSE_MOVE_TIME 1500
+#define U_MOUSE_MOVE_TIME 250
 #define U_MOUSE_MOVE_DELAY 0
 #define U_MOUSE_SCROLL_EXPONENT 1
-#define U_MOUSE_SCROLL_TIME 5000
+#define U_MOUSE_SCROLL_TIME 250
 #define U_MOUSE_SCROLL_DELAY 0
 
 #define U_BTN1 &mkp MB1

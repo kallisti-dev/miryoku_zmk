@@ -4,6 +4,12 @@
 #define MIRYOKU_ALPHAS_QWERTY
 #define MIRYOKU_NAV_VI
 
+// Bind the mouse layer's move/scroll keys to ZMK's &mmv/&msc behaviors.
+// Without this, miryoku_mousekeys.h binds movement to numpad digits (host-OS
+// MouseKeys, off by default on macOS) and scroll to &none. The GHA workflows
+// injected this via the custom_config input; the local Nix build does not.
+#define MIRYOKU_KLUDGE_MOUSEKEYSPR
+
 #define HYPER LC(LA(LG(LSHFT)))
 
 #define MIRYOKU_LAYER_BASE \

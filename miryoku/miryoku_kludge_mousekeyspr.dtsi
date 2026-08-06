@@ -7,10 +7,11 @@
   delay-ms = <U_MOUSE_MOVE_DELAY>;
 };
 
-/*
+// Enabled (upstream ships this commented out, so scroll silently inherited
+// mouse_scroll.dtsi's stock 300ms/exponent-0 rather than the U_MOUSE_SCROLL_*
+// values above).
 &msc {
   acceleration-exponent = <U_MOUSE_SCROLL_EXPONENT>;
   time-to-max-speed-ms = <U_MOUSE_SCROLL_TIME>;
   delay-ms = <U_MOUSE_SCROLL_DELAY>;
 };
-*/
