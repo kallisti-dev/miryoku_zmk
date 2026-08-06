@@ -20,27 +20,28 @@ Output is two UF2 images for the Corne halves (nice!nano v2 / nRF52840):
 
 ## Flash (macOS)
 
-The `nix run .#flash` helper from zmk-nix is **Linux-only** and will refuse to
-evaluate on macOS. On macOS, flash by copying the UF2 onto the bootloader volume:
+Use the interactive flasher, once per half:
 
-1. Put one Corne half into bootloader mode (double-tap the reset button). It
-   mounts as a disk named `NICENANO`.
-2. Copy the matching firmware onto it:
+    nix build              # if you haven't already
+    nix run .#flash left   # double-tap reset on the LEFT half when prompted
+    nix run .#flash right  # double-tap reset on the RIGHT half when prompted
 
-       cp -L result/zmk_left.uf2  /Volumes/NICENANO/     # left half
-       # then reset the other half and:
-       cp -L result/zmk_right.uf2 /Volumes/NICENANO/     # right half
+The script waits for the nice!nano bootloader volume to appear (identified by its
+`INFO_UF2.TXT`, not just the `NICENANO` name), copies the matching
+`result/zmk_<side>.uf2`, and confirms once the board reboots. The reboot causes a
+harmless `Input/output error` from `cp` — the script treats the volume
+disappearing as success, so that error is expected and not a failure.
 
-   The board reboots automatically after the copy completes.
+To flash by hand instead, copy the UF2 onto the bootloader volume:
 
-(`cp -L` follows the `result` symlink into the Nix store; a plain drag-and-drop
-in Finder works too.)
+    cp -L result/zmk_left.uf2 /Volumes/NICENANO/    # after double-tap reset
 
 ## Flash (Linux)
 
-On Linux the zmk-nix helper works:
+This repo's `.#flash` is a macOS script. On Linux, use the zmk-nix flasher
+directly:
 
-    nix run .#flash
+    nix run github:lilyinstarlight/zmk-nix#flash
 
 ## Update ZMK / dependencies
 

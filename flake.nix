@@ -13,7 +13,9 @@
   outputs = { self, nixpkgs, zmk-nix }: let
     forAllSystems = nixpkgs.lib.genAttrs (nixpkgs.lib.attrNames zmk-nix.packages);
   in {
-    packages = forAllSystems (system: rec {
+    packages = forAllSystems (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in rec {
       default = firmware;
 
       firmware = zmk-nix.legacyPackages.${system}.buildSplitKeyboard {
@@ -41,8 +43,24 @@
         };
       };
 
-      flash = zmk-nix.packages.${system}.flash.override { inherit firmware; };
+      # Interactive per-half flasher for macOS. Replaces zmk-nix's Linux-only
+      # flash app (which uses lsblk/udisksctl and won't evaluate on darwin).
+      # Usage: nix run .#flash left   /   nix run .#flash right
+      flash = pkgs.writeShellApplication {
+        name = "flash";
+        runtimeInputs = [ pkgs.coreutils pkgs.gnugrep ];
+        text = builtins.readFile ./flash.sh;
+      };
+
       update = zmk-nix.packages.${system}.update;
+    });
+
+    apps = forAllSystems (system: {
+      flash = {
+        type = "app";
+        program = "${self.packages.${system}.flash}/bin/flash";
+      };
+      default = self.apps.${system}.flash;
     });
 
     devShells = forAllSystems (system: {
