@@ -7,5 +7,31 @@ manifest:
       remote: zmkfirmware
       revision: faaf39d9f59cd2a27eca3739cdd9eb197654299b  # zmkfirmware/zmk main, pinned 2026-07-30
       import: app/west.yml
+    # zmk's app/west.yml tracks the moving v4.1.0+zmk-fixes branch, which
+    # breaks zephyrDepsHash whenever it advances. A top-level entry overrides
+    # the imported one, so it repeats zmk's import blocklist. No clone-depth:
+    # a shallow fetch only reaches branch and tag tips, not a pinned commit.
+    - name: zephyr
+      remote: zmkfirmware
+      revision: 9df4b12b5af3438a8b9d7a33780dc3b3b2f516c1  # v4.1.0+zmk-fixes, 2026-06-28
+      import:
+        name-blocklist:
+          - ci-tools
+          - hal_altera
+          - hal_cypress
+          - hal_infineon
+          - hal_microchip
+          - hal_nxp
+          - hal_openisa
+          - hal_xtensa
+          - hal_st
+          - hal_ti
+          - loramac-node
+          - mcuboot
+          - mcumgr
+          - net-tools
+          - openthread
+          - edtt
+          - trusted-firmware-m
   self:
     path: config
