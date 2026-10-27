@@ -34,7 +34,7 @@
         # stacked on the corne shield (matches the maker's build.yaml).
         shield = "corne_%PART% nice_view_adapter nice_view";
 
-        zephyrDepsHash = "sha256-huutvB9pKI/7oMHB7lDbzoBo0d1THF67AKitYG3GlI0=";
+        zephyrDepsHash = "sha256-R2cyPvMOeszsm0Y/OIXZB3otiNO6JQ1AQlzoDyCgnAM=";
 
         meta = {
           description = "Miryoku ZMK firmware for Corne";

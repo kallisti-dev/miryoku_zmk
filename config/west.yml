@@ -13,7 +13,7 @@ manifest:
     # a shallow fetch only reaches branch and tag tips, not a pinned commit.
     - name: zephyr
       remote: zmkfirmware
-      revision: 9df4b12b5af3438a8b9d7a33780dc3b3b2f516c1  # v4.1.0+zmk-fixes, 2026-06-28
+      revision: 10ba6d0cb38bc3d258775d27982f707599320085  # v4.1.0+zmk-fixes, 2026-08-14
       import:
         name-blocklist:
           - ci-tools
